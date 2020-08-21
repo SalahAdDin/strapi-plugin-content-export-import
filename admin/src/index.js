@@ -5,16 +5,14 @@ import Initializer from "./containers/Initializer";
 import lifecycles from "./lifecycles";
 import trads from "./translations";
 
-export default (strapi) => {
-  const pluginDescription =
-    pluginPkg.strapi.description || pluginPkg.description;
+export default strapi => {
+  const pluginDescription = pluginPkg.strapi.description || pluginPkg.description;
   const icon = pluginPkg.strapi.icon;
   const name = pluginPkg.strapi.name;
 
   const plugin = {
     icon,
     name,
-    destination: `/plugins/${pluginId}`,
     blockerComponent: null,
     blockerComponentProps: {},
     description: pluginDescription,
@@ -33,19 +31,18 @@ export default (strapi) => {
     preventComponentRendering: false,
     trads,
     menu: {
-      // Set a link into the PLUGINS section
       pluginsSectionLinks: [
         {
-          destination: `/plugins/${pluginId}/export`, // Endpoint of the link
           icon,
           name,
+          destination: `/plugins/${pluginId}`,
           label: {
-            id: `${pluginId}.plugin.name`, // Refers to a i18n
-            defaultMessage: "Content Export & Import",
+            id: `${pluginId}.plugin.name`,
+            defaultMessage: name,
           },
         },
-      ],
-    },
+      ]
+    }
   };
 
   return strapi.registerPlugin(plugin);
